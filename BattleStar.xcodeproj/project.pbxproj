@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF20C540260D0735005302BB /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = BF20C53F260D0735005302BB /* Smoke.sks */; };
+		BF20C543260D086E005302BB /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = BF20C542260D086E005302BB /* Snow.sks */; };
+		BF20C546260D0C67005302BB /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = BF20C545260D0C67005302BB /* Fire.sks */; };
 		BFC89ECE260A62E700B6B882 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC89ECD260A62E700B6B882 /* AppDelegate.swift */; };
 		BFC89ED0260A62E700B6B882 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BFC89ECF260A62E700B6B882 /* GameScene.sks */; };
 		BFC89ED2260A62E700B6B882 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = BFC89ED1260A62E700B6B882 /* Actions.sks */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF20C53F260D0735005302BB /* Smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Smoke.sks; sourceTree = "<group>"; };
+		BF20C542260D086E005302BB /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
+		BF20C545260D0C67005302BB /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		BFC89ECA260A62E700B6B882 /* BattleStar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BattleStar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFC89ECD260A62E700B6B882 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFC89ECF260A62E700B6B882 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -66,6 +72,9 @@
 				BFC89ED7260A62E700B6B882 /* Main.storyboard */,
 				BFC89EDA260A62E700B6B882 /* Assets.xcassets */,
 				BFC89EDC260A62E700B6B882 /* Info.plist */,
+				BF20C53F260D0735005302BB /* Smoke.sks */,
+				BF20C542260D086E005302BB /* Snow.sks */,
+				BF20C545260D0C67005302BB /* Fire.sks */,
 			);
 			path = BattleStar;
 			sourceTree = "<group>";
@@ -127,9 +136,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF20C546260D0C67005302BB /* Fire.sks in Resources */,
+				BF20C543260D086E005302BB /* Snow.sks in Resources */,
 				BFC89ED9260A62E700B6B882 /* Main.storyboard in Resources */,
 				BFC89ED0260A62E700B6B882 /* GameScene.sks in Resources */,
 				BFC89EDB260A62E700B6B882 /* Assets.xcassets in Resources */,
+				BF20C540260D0735005302BB /* Smoke.sks in Resources */,
 				BFC89ED2260A62E700B6B882 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

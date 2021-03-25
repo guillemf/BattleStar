@@ -7,6 +7,7 @@
 
 import SpriteKit
 import GameplayKit
+import CoreMotion
 
 class GameScene: SKScene {
     
@@ -23,9 +24,18 @@ class GameScene: SKScene {
     
     private let flyActionKey = "Fly"
     private let shootActionKey = "Shoot"
+    private let firstMoveActionKey = "MoveFirst"
+
+    private let motionManager = CMMotionManager()
     
     override func didMove(to view: SKView) {
         
+        let background = SKSpriteNode(imageNamed: "Mountains")
+        let bgSize = background.size
+        background.size = CGSize(width: bgSize.width * 0.5,
+                                 height: bgSize.height * 0.5)
+        background.zPosition = -1
+        addChild(background)
         // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
         self.pilotNode = SKSpriteNode(imageNamed: "Fly (1)")
@@ -37,30 +47,51 @@ class GameScene: SKScene {
                                                                    timePerFrame: 0.15))
         self.pilotNode.run(self.flyAction, withKey: self.flyActionKey)
         self.pilotNode.position = CGPoint(x: -250, y: -100)
+        self.pilotNode.zPosition = 1000
         self.addChild(self.pilotNode)
+        
+        if let smoke = SKEmitterNode(fileNamed: "Smoke") {
+            smoke.position.x = 500
+            smoke.zPosition = 11
+            smoke.advanceSimulationTime(10)
+            addChild(smoke)
+        }
+        
+        motionManager.startAccelerometerUpdates()
     }
     
 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            self.pilotNode.position.y = touch.location(in: self).y
             self.pilotNode.removeAction(forKey: self.flyActionKey)
             self.pilotNode.run(self.shootAction, withKey: self.shootActionKey)
+            let destination = CGPoint(x: self.pilotNode.position.x,
+                                      y: touch.location(in: self).y)
+            let moveToPoint = SKAction.move(to: destination, duration: 0.5)
+            moveToPoint.timingMode = .easeInEaseOut
+            self.pilotNode.run(moveToPoint, withKey: firstMoveActionKey)
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            self.pilotNode.position.y = touch.location(in: self).y
+            self.pilotNode.removeAction(forKey: firstMoveActionKey)
+
+            let destination = CGPoint(x: self.pilotNode.position.x,
+                                      y: touch.location(in: self).y)
+            let moveToPoint = SKAction.move(to: destination, duration: 0.05)
+            moveToPoint.timingMode = .linear
+            self.pilotNode.run(moveToPoint)
+
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            self.pilotNode.position.y = touch.location(in: self).y
+        if let _ = touches.first {
             self.pilotNode.removeAction(forKey: self.shootActionKey)
             self.pilotNode.run(self.flyAction, withKey: self.flyActionKey)
+            self.pilotNode.removeAction(forKey: firstMoveActionKey)
         }
     }
     
@@ -75,6 +106,9 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        if let accelerometerData = self.motionManager.accelerometerData {
+            let changeY = CGFloat(accelerometerData.acceleration.y) * 100
+            self.pilotNode.position.y += changeY
+        }
     }
 }
